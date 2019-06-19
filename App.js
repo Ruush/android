@@ -1,19 +1,44 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer, createStackNavigator } from "react-navigation";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
+import PeoplePage from "./src/pages/PeoplePage";
+import PeopleDetailPage from "./src/pages/PeopleDetailPage";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const AppNavigator = createStackNavigator({
+  "Main": {
+    screen: PeoplePage
   },
-});
+  "PeopleDetail": {
+    screen: PeopleDetailPage,
+    defaultNavigationOptions: ({ navigation }) => {
+      console.log(navigation)
+      return ({
+        title: peopleName,
+        headerTitleStyle: {
+          color: "red",
+          fontSize: 30
+        }
+      });
+    }
+  }
+},
+  {
+    defaultNavigationOptions: {
+      title: "Pessoas!",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: "#6ca2f7",
+        borderBottomWidth: 1,
+        borderBottomColor: "#C5C5C5"
+      },
+      headerTitleStyle: {
+        color: "white",
+        fontSize: 30,
+        flexGrow: 1,
+        textAlign: "center"
+      }
+    }
+  });
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default AppContainer;
