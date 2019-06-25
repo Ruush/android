@@ -10,7 +10,6 @@ const PeopleListItem = (props) => {
     return (
         <TouchableOpacity onPress={() => {
             navigateToPeopleDetail({ people })
-            console.log("caceta")
         }}>
 
             <View style={styles.line}>
