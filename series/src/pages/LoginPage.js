@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TextInput, StyleSheet, Button, ActivityIndicator } from "react-native";
+import { Text, View, TextInput, StyleSheet, Button, ActivityIndicator, Alert } from "react-native";
 import firebase from "@firebase/app";
 import "@firebase/auth";
 
@@ -41,16 +41,43 @@ export default class LoginPage extends React.Component {
     tryLogin() {
         this.setState({ isLoading: true, message: "" })
         const { mail, password } = this.state
+
+        const loginUserSuccess = (user) => {
+            this.setState({ message: "Sucesso!" })
+            this.props.navigation.navigate("Main");
+            this.setState({ mail: "", password: "" })
+        }
+
+        const loginUserError = (error) => {
+            this.setState({ message: this.getMessageByErrorCode(error.code) })
+        }
+
         firebase
             .auth()
             .signInWithEmailAndPassword(mail, password)
-            .then(user => {
-                this.setState({ message: "Sucesso!" })
-                //console.log("Usuario Autenticado", user)
-            })
+            .then(loginUserSuccess)
             .catch(error => {
-                this.setState({ message: this.getMessageByErrorCode(error.code) })
-
+                if (error.code === "auth/user-not-found") {
+                    Alert.alert(
+                        "Usuário não encontrado",
+                        "Deseja criar um cadastro com as informações inseridas?",
+                        [{
+                            text: "Não"
+                        }, {
+                            text: "Sim",
+                            onPress: () => {
+                                firebase
+                                    .auth()
+                                    .createUserWithEmailAndPassword(mail, password)
+                                    .then(loginUserSuccess)
+                                    .catch(loginUserError(error))
+                            }
+                        }],
+                        { cancelable: false }
+                    );
+                } else {
+                    loginUserError(error)
+                };
             }).then(() => this.setState({ isLoading: false }));
     }
     getMessageByErrorCode(errorCode) {
@@ -73,7 +100,7 @@ export default class LoginPage extends React.Component {
         } else {
             return (
                 <View>
-                    <Text style={styles.error}>{message}</Text>
+                    <Text style={message !== "Sucesso!" ? styles.error : styles.success}>{message}</Text>
                 </View>
             )
         }
@@ -128,5 +155,8 @@ const styles = StyleSheet.create({
     },
     error: {
         color: "red",
+    },
+    success: {
+        color: "green"
     }
 });

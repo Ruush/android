@@ -1,6 +1,7 @@
 import { createAppContainer, createStackNavigator } from "react-navigation"
 
 import LoginPage from "./src/pages/LoginPage";
+import SeriesPage from "./src/pages/SeriesPage";
 
 const AppNavigator = createStackNavigator({
   "Login": {
@@ -13,6 +14,12 @@ const AppNavigator = createStackNavigator({
         flexGrow: 1,
         textAlign: "center"
       }
+    }
+  },
+  "Main": {
+    screen: SeriesPage,
+    navigationOptions: {
+
     }
   },
 }, {
