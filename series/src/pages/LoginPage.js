@@ -1,9 +1,10 @@
 import React from "react";
-import { View, TextInput, StyleSheet, Button, ActivityIndicator } from "react-native";
+import { Text, View, TextInput, StyleSheet, Button, ActivityIndicator } from "react-native";
 import firebase from "@firebase/app";
 import "@firebase/auth";
 
 import FormRow from "../components/FormRow"
+
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class LoginPage extends React.Component {
             mail: "",
             password: "",
             isLoading: false,
+            message: "",
         }
     };
 
@@ -37,18 +39,44 @@ export default class LoginPage extends React.Component {
     }
 
     tryLogin() {
-        this.setState({ isLoading: true })
+        this.setState({ isLoading: true, message: "" })
         const { mail, password } = this.state
-
         firebase
             .auth()
             .signInWithEmailAndPassword(mail, password)
             .then(user => {
-                console.log("Usuario Autenticado", user)
+                this.setState({ message: "Sucesso!" })
+                //console.log("Usuario Autenticado", user)
             })
             .catch(error => {
-                console.log("Usuario não Autenticado", error)
+                this.setState({ message: this.getMessageByErrorCode(error.code) })
+
             }).then(() => this.setState({ isLoading: false }));
+    }
+    getMessageByErrorCode(errorCode) {
+        switch (errorCode) {
+            case "auth/wrong-password":
+                return "Senha incorreta"
+            case "auth/invalid-email":
+                return "Email invalido"
+            case "auth/user-not-found":
+                return "Usuário não encontrado"
+            default:
+                return `Erro desconhecido: ${errorCode}`
+        }
+    }
+
+    renderMessage() {
+        const { message } = this.state
+        if (!message) {
+            return null;
+        } else {
+            return (
+                <View>
+                    <Text style={styles.error}>{message}</Text>
+                </View>
+            )
+        }
     }
 
     renderButtom() {
@@ -82,6 +110,7 @@ export default class LoginPage extends React.Component {
                     />
                 </FormRow>
                 {this.renderButtom()}
+                {this.renderMessage()}
             </View>
         )
     }
@@ -96,5 +125,8 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         paddingBottom: 5
+    },
+    error: {
+        color: "red",
     }
 });
