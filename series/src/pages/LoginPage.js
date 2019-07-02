@@ -2,11 +2,12 @@ import React from "react";
 import { Text, View, TextInput, StyleSheet, Button, ActivityIndicator, Alert } from "react-native";
 import firebase from "@firebase/app";
 import "@firebase/auth";
+import { connect } from "react-redux";
 
 import FormRow from "../components/FormRow"
+import { tryLogin } from "../actions";
 
-
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -40,46 +41,11 @@ export default class LoginPage extends React.Component {
 
     tryLogin() {
         this.setState({ isLoading: true, message: "" })
-        const { mail, password } = this.state
+        const { mail: email, password } = this.state
 
-        const loginUserSuccess = (user) => {
-            this.setState({ message: "Sucesso!" })
-            this.props.navigation.navigate("Main");
-            this.setState({ mail: "", password: "" })
-        }
-
-        const loginUserError = (error) => {
-            this.setState({ message: this.getMessageByErrorCode(error.code) })
-        }
-
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(mail, password)
-            .then(loginUserSuccess)
-            .catch(error => {
-                if (error.code === "auth/user-not-found") {
-                    Alert.alert(
-                        "Usuário não encontrado",
-                        "Deseja criar um cadastro com as informações inseridas?",
-                        [{
-                            text: "Não"
-                        }, {
-                            text: "Sim",
-                            onPress: () => {
-                                firebase
-                                    .auth()
-                                    .createUserWithEmailAndPassword(mail, password)
-                                    .then(loginUserSuccess)
-                                    .catch(loginUserError(error))
-                            }
-                        }],
-                        { cancelable: false }
-                    );
-                } else {
-                    loginUserError(error)
-                };
-            }).then(() => this.setState({ isLoading: false }));
+        this.props.tryLogin({ email, password })
     }
+
     getMessageByErrorCode(errorCode) {
         switch (errorCode) {
             case "auth/wrong-password":
@@ -160,3 +126,5 @@ const styles = StyleSheet.create({
         color: "green"
     }
 });
+
+export default connect(null, { tryLogin })(LoginPage)
