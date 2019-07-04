@@ -44,6 +44,24 @@ class LoginPage extends React.Component {
         const { mail: email, password } = this.state
 
         this.props.tryLogin({ email, password })
+            .then((user) => {
+                if (user) {
+                    this.setState({ message: "Sucesso!" });
+                    this.props.navigation.replace("Main");
+                } else {
+                    this.setState({
+                        isLoading: false,
+                        message: ""
+                    })
+                }
+
+            })
+            .catch(error => {
+                this.setState({
+                    isLoading: false,
+                    message: this.getMessageByErrorCode(error.code)
+                })
+            });
     }
 
     getMessageByErrorCode(errorCode) {
@@ -91,6 +109,8 @@ class LoginPage extends React.Component {
                         placeholder="Email"
                         value={this.state.mail}
                         onChangeText={value => this.onChangeHandler("mail", value.trim())}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                     />
                 </FormRow>
                 <FormRow last>
