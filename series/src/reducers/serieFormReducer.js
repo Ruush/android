@@ -8,12 +8,12 @@ const INITIAL_STATE = {
     description: ""
 }
 
-export default function serieFormReducer(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case SET_FIELD:
             const newState = { ...state };
-            newState[action.field] = action.value
-            return newState
+            newState[action.field] = action.value;
+            return newState;
         default:
             return state;
     }
