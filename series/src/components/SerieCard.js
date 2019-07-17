@@ -7,11 +7,19 @@ const SerieCard = ({ serie, isFirstColumn, onPress }) => (
         style={[styles.container, isFirstColumn ? styles.firstColumn : styles.lastColumn]}
     >
         <View style={styles.card}>
-            <Image
-                source={{ uri: serie.img }}
-                aspectRatio={1}
-                resizeMode="stretch"            //ou container
-            />
+            {
+                serie.img
+                    ? <Image
+                        source={{ uri: serie.img }}
+                        aspectRatio={1}
+                        resizeMode="stretch"            //ou container
+                    />
+                    : <Image
+                        source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" }}
+                        aspectRatio={1}
+                        resizeMode="stretch"            //ou container
+                    />
+            }
             <View style={styles.cardTitleWrapper}>
                 <Text style={styles.cardTitle}>{serie.title}</Text>
             </View>

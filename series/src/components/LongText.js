@@ -35,19 +35,27 @@ export default class LongText extends React.Component {
                 ]}>
                     {label}
                 </Text>
-                <TouchableWithoutFeedback onPress={() => this.toggleIsExpanded()}>
-                    <View>
-                        <Text style={[
+                {
+                    content.length > 0
+                        ? <TouchableWithoutFeedback onPress={() => this.toggleIsExpanded()}>
+                            <View>
+                                <Text style={[
+                                    styles.cell, styles.content, isExpanded ? styles.expanded : styles.collapsed
+                                ]}>
+                                    {content}
+                                </Text>
+                                <Text style={[styles.cell, styles.content]}>
+                                    {isExpanded ? "Clique para recolher" : "[...] Clique para expandir"}
+                                </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        : <Text style={[
                             styles.cell, styles.content, isExpanded ? styles.expanded : styles.collapsed
                         ]}>
-                            {content}
+                            {"Sem descrição!"}
                         </Text>
-                        <Text style={[styles.cell, styles.content]}>
-                        {isExpanded ? "": "[...] Clique para expandir"}
-                        </Text>
-                    </View>
-                </TouchableWithoutFeedback>
-            </View >
+                }
+            </View>
         )
     }
 }

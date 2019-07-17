@@ -21,13 +21,13 @@ class LoginPage extends React.Component {
 
     componentDidMount() {
         var firebaseConfig = {
-            apiKey: "AIzaSyBMxGjR6FteOB6c5sA6GIzF_x_q8Xb55lU",
-            authDomain: "series-app-384be.firebaseapp.com",
-            databaseURL: "https://series-app-384be.firebaseio.com",
-            projectId: "series-app-384be",
+            apiKey: "AIzaSyDW8lROsAjoA81WBvw20wX-r_hCmM-TdUM",
+            authDomain: "seriesapp-71bf1.firebaseapp.com",
+            databaseURL: "https://seriesapp-71bf1.firebaseio.com",
+            projectId: "seriesapp-71bf1",
             storageBucket: "",
-            messagingSenderId: "532278312070",
-            appId: "1:532278312070:web:0b5bd719f5b9f27f"
+            messagingSenderId: "956505583716",
+            appId: "1:956505583716:web:134f7d2072e0a3ad"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -95,7 +95,10 @@ class LoginPage extends React.Component {
             return <ActivityIndicator />
         } else {
             return (
-                <Button title="Entrar" onPress={() => this.tryLogin()} />
+                <Button
+                    title="Entrar"
+                    onPress={() => this.tryLogin()}
+                />
             )
         };
     };
@@ -111,6 +114,11 @@ class LoginPage extends React.Component {
                         onChangeText={value => this.onChangeHandler("mail", value.trim())}
                         keyboardType="email-address"
                         autoCapitalize="none"
+
+                        autoFocus={true}
+                        returnKeyType={"next"}
+                        onSubmitEditing={() => { this.Password.focus(); }}
+                        blurOnSubmit={false}
                     />
                 </FormRow>
                 <FormRow last>
@@ -120,6 +128,11 @@ class LoginPage extends React.Component {
                         secureTextEntry
                         value={this.state.password}
                         onChangeText={value => this.onChangeHandler("password", value)}
+
+                        ref={(input) => { this.Password = input; }}
+                        returnKeyType={"next"}
+                        onSubmitEditing={() => { this.tryLogin() }}
+                        blurOnSubmit={false}
                     />
                 </FormRow>
                 {this.renderButtom()}

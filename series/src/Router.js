@@ -6,13 +6,14 @@ import SerieDetailPage from "./pages/SerieDetailPage";
 import SerieFormPage from "./pages/SerieFormPage";
 
 const AppNavigator = createStackNavigator({
-  "SerieForm": {
-    screen: SerieFormPage,
+  "Login": {
+    screen: LoginPage,
     navigationOptions: {
-      title: "Nova Serie",
+      title: "Bem vindo!",
       headerTitleStyle: {
         color: "white",
-        fontSize: 35,        
+        fontSize: 35,
+        flexGrow: 1,
         textAlign: "center"
       }
     }
@@ -23,14 +24,13 @@ const AppNavigator = createStackNavigator({
 
     }
   },
-  "Login": {
-    screen: LoginPage,
+  "SerieForm": {
+    screen: SerieFormPage,
     navigationOptions: {
-      title: "Bem vindo!",
+      title: "Nova Serie",
       headerTitleStyle: {
         color: "white",
         fontSize: 35,
-        flexGrow: 1,
         textAlign: "center"
       }
     }
@@ -58,7 +58,7 @@ const AppNavigator = createStackNavigator({
       }
     }
   },
-  
+
 }, {
     defaultNavigationOptions: {
       title: "Series!",
