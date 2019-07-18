@@ -26,12 +26,36 @@ const AppNavigator = createStackNavigator({
   },
   "SerieForm": {
     screen: SerieFormPage,
-    navigationOptions: {
-      title: "Nova Serie",
-      headerTitleStyle: {
-        color: "white",
-        fontSize: 35,
-        textAlign: "center"
+    navigationOptions: ({ navigation }) => {
+      const { params } = navigation.state
+      let title = "Nova Serie"
+      let fontSize = 35
+      if (params && params.serieToEdit) {
+        title = params.serieToEdit.title
+      }
+      if (title.length > 16 & title.length <= 25) {
+        fontSize = 25
+      } else if (title.length > 25) {
+        fontSize = 18
+      }
+      if (params && params.serieToEdit) {
+        return {
+          title: title,
+          headerTitleStyle: {
+            color: "white",
+            fontSize: fontSize,
+            textAlign: "center"
+          }
+        }
+      } else {
+        return {
+          title: "Nova Serie",
+          headerTitleStyle: {
+            color: "white",
+            fontSize: 35,
+            textAlign: "center"
+          }
+        }
       }
     }
   },
@@ -39,12 +63,18 @@ const AppNavigator = createStackNavigator({
     screen: SerieDetailPage,
     navigationOptions: ({ navigation }) => {
       const { serie } = navigation.state.params;
+      let fontSize = 35
+      if (serie.title.length > 16 & serie.title.length <= 25) {
+        fontSize = 25
+      } else if (serie.title.length > 25) {
+        fontSize = 18
+      }
       if (serie.title.length > 16) {
         return {
           title: serie.title,
           headerTitleStyle: {
             color: "white",
-            fontSize: 25,
+            fontSize: fontSize,
           }
         }
       } else {
@@ -52,7 +82,7 @@ const AppNavigator = createStackNavigator({
           title: serie.title,
           headerTitleStyle: {
             color: "white",
-            fontSize: 35,
+            fontSize: fontSize,
           }
         }
       }

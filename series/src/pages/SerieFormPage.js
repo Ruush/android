@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TextInput, Picker, Slider, Button, ScrollView, 
 import { connect } from "react-redux";
 
 import FormRow from "../components/FormRow";
-import { setField, saveSerie } from "../actions/serieFormActions";
+import { setField, saveSerie, editSerie, resetForm } from "../actions/serieFormActions";
 
 class SeriesFormPage extends React.Component {
     constructor(props) {
@@ -12,7 +12,16 @@ class SeriesFormPage extends React.Component {
             isLoading: false,
         }
     }
+    componentDidMount() {
+        const { navigation, editSerie, resetForm } = this.props
+        const { params } = navigation.state
 
+        if (params && params.serieToEdit) {
+            editSerie(params.serieToEdit)
+        } else {
+            resetForm()
+        }
+    }
     render() {
         const { serieForm, setField, saveSerie, navigation } = this.props;
 
@@ -140,7 +149,9 @@ const mapStateToProps = (state) => {
 
 const MapDispatchToProps = {
     setField,
-    saveSerie
+    saveSerie,
+    editSerie,
+    resetForm
 }
 
 export default connect(mapStateToProps, MapDispatchToProps)(SeriesFormPage);
