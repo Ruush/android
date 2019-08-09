@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     title: "",
     gender: "Comédia",
     rate: 0,
-    img: "",
+    img64: "",
     description: ""
 }
 

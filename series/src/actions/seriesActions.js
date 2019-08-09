@@ -2,7 +2,7 @@ import firebase from "firebase";
 import { Alert } from "react-native"
 
 export const SET_SERIES = "SET_SERIES"
-export const setSeries = series => ({
+export const setSeries = (series = {}) => ({
     type: SET_SERIES,
     series
 })
@@ -14,7 +14,12 @@ export const watchSeries = () => {
             .database()
             .ref(`/users/${currentUser.uid}/series`)
             .on("value", snapshot => {
-                const series = snapshot.val();
+                let series = {}
+                if (snapshot.val() === null) {
+                    series = { NEW_USER: { title: "NEW_USER" } }
+                } else {
+                    series = snapshot.val();
+                }
                 const action = setSeries(series);
                 dispatch(action);
             })
