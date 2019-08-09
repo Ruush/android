@@ -115,7 +115,6 @@ class LoginPage extends React.Component {
                         keyboardType="email-address"
                         autoCapitalize="none"
 
-                        autoFocus={true}
                         returnKeyType={"next"}
                         onSubmitEditing={() => { this.Password.focus(); }}
                         blurOnSubmit={false}

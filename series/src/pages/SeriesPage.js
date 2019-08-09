@@ -1,8 +1,8 @@
 import React from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator, Text } from "react-native";
 
 import SerieCard from "../components/SerieCard.js";
-import AddSerieCard from "../components/addSerieCard.js";
+import AddSerieCard from "../components/AddSerieCard.js";
 import { connect } from "react-redux";
 import { watchSeries } from "../actions";
 
@@ -18,29 +18,37 @@ class SeriesPage extends React.Component {
 
         if (series === null) {
             return <ActivityIndicator />
-        }
-
-        return (
-            <View>
-                <FlatList
-                    data={[...series, { isLast: true }]}
-                    renderItem={({ item, index }) => (
-                        item.isLast ? <AddSerieCard
-                            isFirstColumn={isEven(index)}
-                            onPress={() => navigation.navigate("SerieForm")} />
-                            : <SerieCard
-                                serie={item}
+        } else if (series[0].id === "NEW_USER") {
+            return (
+                <View>
+                    <AddSerieCard
+                        isFirstColumn={false}
+                        onPress={() => navigation.navigate("SerieForm")} />
+                </View>
+            )
+        } else {
+            return (
+                <View>
+                    <FlatList
+                        data={[...series, { isLast: true }]}
+                        renderItem={({ item, index }) => (
+                            item.isLast ? <AddSerieCard
                                 isFirstColumn={isEven(index)}
-                                onPress={() => navigation.navigate("SerieDetail", { serie: item })}
-                            />
-                    )}
-                    keyExtractor={item => `${item.id}`}
-                    numColumns={2}
-                    ListHeaderComponent={props => (<View style={styles.marginTop} />)}
-                    ListBottomComponent={props => (<View style={styles.marginBottom} />)}
-                />
-            </View>
-        )
+                                onPress={() => navigation.navigate("SerieForm")} />
+                                : <SerieCard
+                                    serie={item}
+                                    isFirstColumn={isEven(index)}
+                                    onPress={() => navigation.navigate("SerieDetail", { serie: item })}
+                                />
+                        )}
+                        keyExtractor={item => `${item.id}`}
+                        numColumns={2}
+                        ListHeaderComponent={props => (<View style={styles.marginTop} />)}
+                        ListBottomComponent={props => (<View style={styles.marginBottom} />)}
+                    />
+                </View>
+            )
+        }
     }
 };
 
