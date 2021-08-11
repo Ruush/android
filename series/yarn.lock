@@ -2345,7 +2345,7 @@ expo-camera@~5.0.1:
     lodash "^4.6.0"
     prop-types "^15.6.0"
 
-expo-constants@~5.0.0, expo-constants@~5.0.1:
+expo-constants@5.0.1, expo-constants@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-5.0.1.tgz#597263397f269d7fe37d9cd6b30e305c16635a00"
   integrity sha512-Ny3teALKaE/jFzBg6DHr2GOoHpwQ/OLs3q3VugZOoR6hXCeVcCEP9MyNvhgn/cheeBDAa6UIgarv2Yufb5RMqQ==
@@ -2425,6 +2425,11 @@ expo-image-manipulator@~5.0.1:
   resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-5.0.1.tgz#7e24161eade3888d87471e7fb724fba91d5857eb"
   integrity sha512-9SOp1hAF4CghwsnO3odx1/ia7NlMrXX/6uIWx+1nxDYGhRg52YFB/Kv84vXS/a5cSGuewBPc4t3++QTo9S7qdQ==
 
+expo-image-picker@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-5.0.0.tgz#2546a28bf2dd74cb7544e545f5b24763f39a5664"
+  integrity sha512-kJ/FPr1F4HlYZUC1GG8iJqqxnMPr0wcgW0IHrdltVchyL9THXyqDCza1i2m3S1lk4KjmXw87ACSZsCyNAi2LdA==
+
 expo-image-picker@~5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-5.0.2.tgz#975ef46bc614d471f01e6de0b2db42e55aab4a56"
@@ -2483,6 +2488,11 @@ expo-payments-stripe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/expo-payments-stripe/-/expo-payments-stripe-5.0.1.tgz#da096cf81fc03dbfd540ce6814cc67222d7447ff"
   integrity sha512-U1SP9QPrCUUgYURGysUsQN1VEHs88ok+vTd30vsdbKq3TkguIPc0HuL/p2VE48KpVuykLKTmD4j9Ey56qUUiLg==
+
+expo-permissions@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-5.0.0.tgz#ab6cf7666f7f54b06cf4d6737f61b36f258aa12a"
+  integrity sha512-kBz4syNX0f+oxAuReimTuOxCTDMkypCvG9MyRdR7TfXhZ1Vyaal4L5uY0EIZBlV6N5Qe7qDdIuGKjHqb2O3G8A==
 
 expo-permissions@~5.0.1:
   version "5.0.1"
@@ -4636,9 +4646,9 @@ path-key@^2.0.0, path-key@^2.0.1:
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
 path-parse@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-  integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+  integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-to-regexp@^1.7.0:
   version "1.7.0"
